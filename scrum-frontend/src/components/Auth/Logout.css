@@ -1,0 +1,65 @@
+/* src/components/Auth/Logout.css */
+
+.logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Occupe toute la hauteur de la vue */
+    background-color: #f8f9fa; /* Couleur de fond claire */
+  }
+  
+  .logout-message {
+    text-align: center;
+    background-color: #ffffff; /* Fond blanc */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    padding: 20px; /* Espacement interne */
+    width: 300px; /* Largeur du conteneur */
+  }
+  
+  .logout-message p {
+    margin: 0;
+    font-size: 18px; /* Taille de la police */
+    font-weight: bold; /* Gras */
+    color: #004080; /* Couleur du texte (bleu NTT DATA) */
+  }
+  
+  .loading-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #004080; /* Couleur des points (bleu NTT DATA) */
+    animation: bounce 1.5s infinite ease-in-out;
+  }
+  
+  .dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+  
+  .dot:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  
+  .dot:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+  

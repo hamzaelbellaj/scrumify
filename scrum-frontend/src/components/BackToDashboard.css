@@ -1,0 +1,27 @@
+.back-to-dashboard {
+    position: fixed;
+    top: 70px; /* Ajustez la position pour qu'elle soit sous le header */
+    right: 20px; /* Déplace le bouton à droite */
+    z-index: 1000; /* Assurez-vous qu'il est au-dessus des autres éléments */
+  }
+  
+  .back-button {
+    background-color: #004080; /* Couleur bleue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .back-button:hover {
+    background-color: #003060; /* Couleur bleue plus foncée au survol */
+  }
+  
+  .arrow {
+    margin-right: 8px; /* Espacement entre la flèche et le texte */
+    font-size: 18px; /* Taille de la flèche */
+  }
+  

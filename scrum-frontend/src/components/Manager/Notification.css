@@ -1,0 +1,11 @@
+.notifications {
+    margin: 20px 0;
+  }
+  
+  .notification {
+    background-color: #f0f8ff;
+    border: 1px solid #b0e0e6;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }

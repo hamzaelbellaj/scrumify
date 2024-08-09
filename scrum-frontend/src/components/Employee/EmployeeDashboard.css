@@ -1,0 +1,112 @@
+.employee-dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  position: relative;
+}
+
+.dashboard-container {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s;
+}
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 250px;
+  background-color: #f4f4f4;
+  transition: transform 0.3s ease; /* Animation d'ouverture/fermeture */
+  transform: translateX(-100%);
+  z-index: 1000;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* Ouvrir la sidebar */
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.sidebar-item img {
+  margin-right: 10px;
+}
+
+.sidebar-item:hover {
+  background-color: #e0e0e0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.495);
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Styles du bouton hamburger */
+.hamburger {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  display: none; /* Masquer par défaut */
+}
+
+/* Overlay pour la sidebar */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(139, 133, 133, 0.5); /* Fond sombre */
+  z-index: 999; /* Juste en dessous de la sidebar */
+}
+
+/* Media Queries pour Responsive Design */
+@media (max-width: 768px) {
+  .employee-dashboard {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .hamburger {
+    display: block; /* Afficher sur mobile */
+  }
+
+  .dashboard-container {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .sidebar {
+    width: 250px;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .table-container {
+    margin-top: 20px;
+  }
+}

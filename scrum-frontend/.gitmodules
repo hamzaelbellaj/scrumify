@@ -1,0 +1,3 @@
+[submodule "scrum-process"]
+	path = scrum-process
+	url = https://github.com/hamzaelbellaj/scrum-process
