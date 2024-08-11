@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrum-backend-deployment
+  labels:
+    app: scrum-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scrum-backend
+  template:
+    metadata:
+      labels:
+        app: scrum-backend
+    spec:
+      containers:
+      - name: scrum-backend
+        image: akasbiacrpfa.azurecr.io/scrum-backend:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATA_MONGODB_URI
+          value: "mongodb://hamza:hamza@mongo:27017/scrumdb?authSource=admin"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scrum-backend-service
+spec:
+  selector:
+    app: scrum-backend
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer

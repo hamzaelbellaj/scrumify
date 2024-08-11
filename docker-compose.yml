@@ -1,21 +1,21 @@
 version: '3.8'
+
 services:
   backend:
-    build:
-      context: ./scrum-backend
+    build: ./scrum-backend
+    image: akasbiacrpfa.azurecr.io/scrum-backend:latest
     ports:
       - "8080:8080"
-    depends_on:
-      - mongo
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://hamza:hamza@mongo:27017/scrumdb?authSource=admin
-    command: ["sh", "-c", "dockerize -wait tcp://mongo:27017 -timeout 20s && java -jar app.jar"]
+    depends_on:
+      - mongo
     networks:
       - scrum
 
   frontend:
-    build:
-      context: ./scrum-frontend
+    build: ./scrum-frontend
+    image: akasbiacrpfa.azurecr.io/scrum-frontend:latest
     ports:
       - "3000:80"
     networks:
@@ -27,7 +27,7 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-      - /home/akayass/dump:/dump  # Ajoutez cette ligne pour monter le répertoire de dump
+      - /home/akayass/dump/db/export:/dump/db/export  # Montre le répertoire local au conteneur
     environment:
       MONGO_INITDB_ROOT_USERNAME: hamza
       MONGO_INITDB_ROOT_PASSWORD: hamza

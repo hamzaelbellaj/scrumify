@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrum-mongo-deployment
+  labels:
+    app: scrum-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scrum-mongo
+  template:
+    metadata:
+      labels:
+        app: scrum-mongo
+    spec:
+      containers:
+      - name: scrum-mongo
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "hamza"
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: "hamza"
+        - name: MONGO_INITDB_DATABASE
+          value: "scrumdb"
+        volumeMounts:
+        - name: mongo-data
+          mountPath: /data/db
+        - name: mongo-dump
+          mountPath: /dump/db/export  # Le chemin à l'intérieur du conteneur où vos données seront accessibles
+      volumes:
+      - name: mongo-data
+        persistentVolumeClaim:
+          claimName: scrum-mongo-pvc
+      - name: mongo-dump
+        hostPath:
+          path: "/home/akayass/dump/db/export"  # Chemin sur la VM
+          type: Directory
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: scrum-mongo-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scrum-mongo-service
+spec:
+  selector:
+    app: scrum-mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP
