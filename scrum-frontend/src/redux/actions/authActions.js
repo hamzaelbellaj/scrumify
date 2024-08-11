@@ -23,7 +23,6 @@ export const login = (credentials) => async (dispatch) => {
   }
 };
 
-
 export const register = (credentials) => async (dispatch) => {
   try {
     const res = await axios.post('http://localhost:8080/api/auth/register', credentials);
@@ -52,7 +51,6 @@ export const register = (credentials) => async (dispatch) => {
     throw error; // Assurez-vous de relancer l'erreur pour la propager
   }
 };
-
 
 export const logout = () => {
   localStorage.removeItem('token');
