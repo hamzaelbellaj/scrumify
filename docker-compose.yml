@@ -26,8 +26,8 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data:/data/db
-      - /home/akayass/dump/db/export:/dump/db/export  # Montre le répertoire local au conteneur
+      - mongo-data:/data/db  # Utilisation d'un volume nommé pour /data/db
+      - C:/Users/PC/Desktop/export:/data/db  # Montrez votre répertoire local sur /data/db dans le conteneur
     environment:
       MONGO_INITDB_ROOT_USERNAME: hamza
       MONGO_INITDB_ROOT_PASSWORD: hamza
