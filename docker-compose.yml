@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://hamza:hamza@mongo:27017/scrumdb?authSource=admin
+      SPRING_DATA_MONGODB_URI: mongodb://hamza:hamza@scrum-mongo-service:27017/scrumdb?authSource=admin
     depends_on:
       - mongo
     networks:
@@ -21,7 +21,7 @@ services:
     networks:
       - scrum
 
-  mongo:
+  scrum-mongo-service:
     build: ./database  
     image: scrumifyacr.azurecr.io/scrum-mongo:latest
     ports:

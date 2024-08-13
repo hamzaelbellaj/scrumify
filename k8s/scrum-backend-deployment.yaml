@@ -21,7 +21,7 @@ spec:
         - containerPort: 8080
         env:
         - name: SPRING_DATA_MONGODB_URI
-          value: "mongodb://hamza:hamza@mongo:27017/scrumdb?authSource=admin"
+          value: "mongodb://hamza:hamza@scrum-mongo-service:27017/scrumdb?authSource=admin"
       imagePullSecrets:
       - name: scrum-secret
 ---
