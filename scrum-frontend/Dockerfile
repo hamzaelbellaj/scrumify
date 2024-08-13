@@ -16,13 +16,22 @@ COPY . .
 RUN npm run build
 
 # Étape de production
-FROM nginx:alpine
+FROM node:18
+
+WORKDIR /app
 
 # Copier les fichiers construits depuis l'étape de construction
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/build /app/build
+COPY --from=build /app/node_modules /app/node_modules
 
-# Exposer le port 80
-EXPOSE 80
+# Ajouter un simple serveur express pour servir les fichiers statiques
+RUN npm install express
 
-# Commande par défaut
-CMD ["nginx", "-g", "daemon off;"]
+# Créer un fichier server.js pour servir les fichiers construits
+RUN echo "const express = require('express'); const path = require('path'); const app = express(); app.use(express.static(path.join(__dirname, 'build'))); app.get('*', (req, res) => { res.sendFile(path.join(__dirname, 'build', 'index.html')); }); app.listen(3000, () => { console.log('Server is running on port 3000'); });" > server.js
+
+# Exposer le port 3000
+EXPOSE 3000
+
+# Commande par défaut pour démarrer le serveur Express
+CMD ["node", "server.js"]
