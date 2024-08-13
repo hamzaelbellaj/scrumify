@@ -9,7 +9,7 @@ services:
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://hamza:hamza@scrum-mongo-service:27017/scrumdb?authSource=admin
     depends_on:
-      - mongo
+      - scrum-mongo-service
     networks:
       - scrum
 
