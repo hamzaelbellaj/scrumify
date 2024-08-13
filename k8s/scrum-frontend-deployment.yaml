@@ -19,6 +19,8 @@ spec:
         image: scrumifyacr.azurecr.io/scrum-frontend:latest
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: scrum-secret
 ---
 apiVersion: v1
 kind: Service
