@@ -1,0 +1,6 @@
+_id,firstName,lastName,email,role,_class,status,username,password
+66abc3ee4502976130179260,anas,elbellaj,uyjgkh@gmail.com,KHHHHHhhhhhh,com.example.scrumbackend.models.Employee,,,
+66ac1dd072c5236c86bd5617,mohammed,elbellaj,tfuygjkl@hu.com,Fournisseur,com.example.scrumbackend.models.Employee,,,
+66ad075d41eb7961576ea9e7,John,Doe,john.doe@example.com,,,Employee,johndoe,securepassword123
+66abe42b36414a616a03d7f7,hamza 2,1,elbellaj.hamza@emsi-edu.ma,deeev,com.example.scrumbackend.models.Employee,,,
+66ab0cc02972da7b46a7d025,Hamza,elbellaj,hamza@elbellaj.com,Dev,com.example.scrumbackend.models.Employee,,,

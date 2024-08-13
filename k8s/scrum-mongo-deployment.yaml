@@ -14,9 +14,11 @@ spec:
       labels:
         app: scrum-mongo
     spec:
+      imagePullSecrets:
+      - name: scrum-secret
       containers:
       - name: scrum-mongo
-        image: mongo:latest
+        image: scrumifyacr.azurecr.io/scrum-mongo:latest
         ports:
         - containerPort: 27017
         env:
@@ -29,16 +31,10 @@ spec:
         volumeMounts:
         - name: mongo-data
           mountPath: /data/db
-        - name: mongo-dump
-          mountPath: /dump/db/export  # Le chemin à l'intérieur du conteneur où vos données seront accessibles
       volumes:
       - name: mongo-data
         persistentVolumeClaim:
           claimName: scrum-mongo-pvc
-      - name: mongo-dump
-        hostPath:
-          path: "/home/akayass/dump/db/export"  # Chemin sur la VM
-          type: Directory
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -49,7 +45,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: Service

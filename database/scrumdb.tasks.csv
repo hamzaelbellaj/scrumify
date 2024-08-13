@@ -1,0 +1,3 @@
+_id,title,description,assignedTo,sprintId,status,_class
+66ba054a0c8bf91748f9cf8a,t2000,t200000,66ba173c2d081e2e7fb7eb3c,66ba178e2d081e2e7fb7eb3d,In Progress,com.example.scrumbackend.models.Task
+66ba17b72d081e2e7fb7eb3e,tyache cloud gresa,greeeee,66ba173c2d081e2e7fb7eb3c,66ba178e2d081e2e7fb7eb3d,Completed,com.example.scrumbackend.models.Task

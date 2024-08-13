@@ -1,0 +1,4 @@
+_id,username,password,roles[0]._id,roles[0].name,_class,firstName,lastName,email,status
+66b9258c8cd744214f291146,mana,$2a$10$uBmtKG/leH9Kh.itHKpCW.JGU9NoyC.x.xc2aEtltJedhGrtPkLb2,unique-id-1,Manager,com.example.scrumbackend.models.User,,,,
+66ba173c2d081e2e7fb7eb3c,sahby,$2a$10$MaLPy6ELiKcBvAlQiwWHiejCC8RsFoqqvX67Y.VjEHTsMllD8seAe,,Employee,com.example.scrumbackend.models.Employee,sahby,sahbyyyy,hamzaelbellaj@gmail.com,sahbyy
+66bb483e9b9c921cd9305fdf,testeur,$2a$10$Htee76/.buCgOsh0G/eREe9IeVQzAGEtAtJXMEZAOo8beJ7KGYRY6,,Employee,com.example.scrumbackend.models.Employee,testeur,ait testeur,elbellaj.hamza@emsi-edu.ma,Testeur QA

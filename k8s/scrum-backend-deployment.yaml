@@ -5,7 +5,7 @@ metadata:
   labels:
     app: scrum-backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: scrum-backend
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: scrum-backend
-        image: akasbiacrpfa.azurecr.io/scrum-backend:latest
+        image: scrumifyacr.azurecr.io/scrum-backend:latest
         ports:
         - containerPort: 8080
         env:

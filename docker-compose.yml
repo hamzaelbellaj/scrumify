@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build: ./scrum-backend
-    image: akasbiacrpfa.azurecr.io/scrum-backend:latest
+    image: scrumifyacr.azurecr.io/scrum-backend:latest
     ports:
       - "8080:8080"
     environment:
@@ -15,19 +15,19 @@ services:
 
   frontend:
     build: ./scrum-frontend
-    image: akasbiacrpfa.azurecr.io/scrum-frontend:latest
+    image: scrumifyacr.azurecr.io/scrum-frontend:latest
     ports:
-      - "3000:80"
+      - "3000:3000"
     networks:
       - scrum
 
   mongo:
-    image: mongo:latest
+    build: ./database  
+    image: scrumifyacr.azurecr.io/scrum-mongo:latest
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data:/data/db  # Utilisation d'un volume nommé pour /data/db
-      - C:/Users/PC/Desktop/export:/data/db  # Montrez votre répertoire local sur /data/db dans le conteneur
+      - mongo-data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: hamza
       MONGO_INITDB_ROOT_PASSWORD: hamza
