@@ -18,10 +18,14 @@ const TaskManagement = () => {
     sprintId: '',
     status: 'Not Started'
   });
-  const [viewMode, setViewMode] = useState('kanban'); // Mode d'affichage
+  const [viewMode, setViewMode] = useState('kanban');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTasksAndSprintsAndEmployees = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const token = localStorage.getItem('token');
         const tasksResponse = await axios.get('http://20.164.48.110/api/manager/tasks', {
@@ -38,7 +42,10 @@ const TaskManagement = () => {
         setSprints(sprintsResponse.data);
         setEmployees(employeesResponse.data);
       } catch (error) {
+        setError('Error fetching data');
         console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -71,6 +78,7 @@ const TaskManagement = () => {
         status: 'Not Started'
       });
     } catch (error) {
+      setError('Error creating task');
       console.error('Error creating task:', error);
     }
   };
@@ -105,6 +113,7 @@ const TaskManagement = () => {
       setTasks(updatedTasks);
       setShowModal(false);
     } catch (error) {
+      setError('Error updating task');
       console.error('Error updating task:', error);
     }
   };
@@ -119,6 +128,7 @@ const TaskManagement = () => {
       setTasks(updatedTasks);
       setShowModal(false);
     } catch (error) {
+      setError('Error deleting task');
       console.error('Error deleting task:', error);
     }
   };
@@ -127,20 +137,22 @@ const TaskManagement = () => {
     <section className="task-management">
       <BackToDashboard />
       <h2>Gestion des Tâches</h2>
-        <div className="toggle-switch">
+      {loading && <div className="loading">Loading...</div>}
+      {error && <div className="error">{error}</div>}
+      <div className="toggle-switch">
         <div 
-       className={`toggle-option ${viewMode === 'kanban' ? 'active' : ''}`}
-       onClick={() => setViewMode('kanban')}
-  >
-    Vu Normale
-  </div>
-  <div 
-    className={`toggle-option ${viewMode === 'vukanban' ? 'active' : ''}`}
-    onClick={() => setViewMode('vukanban')}
-  >
-    Vu Kanban
-  </div>
-</div>
+          className={`toggle-option ${viewMode === 'kanban' ? 'active' : ''}`}
+          onClick={() => setViewMode('kanban')}
+        >
+          Vu Normale
+        </div>
+        <div 
+          className={`toggle-option ${viewMode === 'vukanban' ? 'active' : ''}`}
+          onClick={() => setViewMode('vukanban')}
+        >
+          Vu Kanban
+        </div>
+      </div>
 
       {viewMode === 'vukanban' ? (
         <Vukanban />
