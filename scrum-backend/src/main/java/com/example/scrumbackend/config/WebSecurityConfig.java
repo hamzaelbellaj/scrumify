@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                 .antMatchers("/api/manager/**").permitAll()
                 .antMatchers("/api/employee/**").permitAll()
                 .antMatchers("/api/manager/count").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
