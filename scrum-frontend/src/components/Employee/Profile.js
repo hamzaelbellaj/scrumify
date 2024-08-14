@@ -11,7 +11,7 @@ const Profile = () => {
     const fetchEmployee = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get(`http://localhost:8080/api/employees/${employeeId}`, {
+        const response = await axios.get(`http://20.164.48.110/api/employees/${employeeId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         setEmployee(response.data);

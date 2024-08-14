@@ -24,13 +24,13 @@ const TaskManagement = () => {
     const fetchTasksAndSprintsAndEmployees = async () => {
       try {
         const token = localStorage.getItem('token');
-        const tasksResponse = await axios.get('http://localhost:8080/api/manager/tasks', {
+        const tasksResponse = await axios.get('http://20.164.48.110/api/manager/tasks', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        const sprintsResponse = await axios.get('http://localhost:8080/api/manager/sprints', {
+        const sprintsResponse = await axios.get('http://20.164.48.110/api/manager/sprints', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        const employeesResponse = await axios.get('http://localhost:8080/api/employees', {
+        const employeesResponse = await axios.get('http://20.164.48.110/api/employees', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -57,7 +57,7 @@ const TaskManagement = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:8080/api/manager/tasks', newTask, {
+      const response = await axios.post('http://20.164.48.110/api/manager/tasks', newTask, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -85,7 +85,7 @@ const TaskManagement = () => {
   const fetchComments = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8080/api/tasks/${taskId}/comments`, {
+      const response = await axios.get(`http://20.164.48.110/api/tasks/${taskId}/comments`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       return response.data;

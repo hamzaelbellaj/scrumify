@@ -15,12 +15,12 @@ const TaskBoard = () => {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem('token');
-        const tasksResponse = await axios.get(`http://localhost:8080/api/manager/tasks`, {
+        const tasksResponse = await axios.get(`http://20.164.48.110/api/manager/tasks`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         const assignedTasks = tasksResponse.data.filter(task => task.assignedTo === employeeId);
         
-        const sprintResponse = await axios.get(`http://localhost:8080/api/manager/tasks/employee/${employeeId}/sprint-details`, {
+        const sprintResponse = await axios.get(`http://20.164.48.110/api/manager/tasks/employee/${employeeId}/sprint-details`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -65,7 +65,7 @@ const TaskBoard = () => {
     try {
       const token = localStorage.getItem('token');
       const newStatus = selectedStatus[selectedTask.id];
-      await axios.patch(`http://localhost:8080/api/manager/tasks/${selectedTask.id}/status`, { status: newStatus }, {
+      await axios.patch(`http://20.164.48.110/api/manager/tasks/${selectedTask.id}/status`, { status: newStatus }, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -83,7 +83,7 @@ const TaskBoard = () => {
   const fetchComments = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8080/api/tasks/${taskId}/comments`, {
+      const response = await axios.get(`http://20.164.48.110/api/tasks/${taskId}/comments`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setComments(prev => ({ ...prev, [taskId]: response.data }));
@@ -96,7 +96,7 @@ const TaskBoard = () => {
     try {
       const token = localStorage.getItem('token');
       const newComment = { commentText };
-      await axios.post(`http://localhost:8080/api/tasks/${taskId}/comments?employeeId=${employeeId}`, newComment, {
+      await axios.post(`http://20.164.48.110/api/tasks/${taskId}/comments?employeeId=${employeeId}`, newComment, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       fetchComments(taskId);
@@ -108,7 +108,7 @@ const TaskBoard = () => {
   const deleteComment = async (taskId, commentId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/api/tasks/${taskId}/comments/${commentId}`, {
+      await axios.delete(`http://20.164.48.110/api/tasks/${taskId}/comments/${commentId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       fetchComments(taskId);
