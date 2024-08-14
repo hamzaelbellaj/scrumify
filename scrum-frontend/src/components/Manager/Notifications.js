@@ -10,7 +10,7 @@ const Notification = () => {
       const token = localStorage.getItem('token');
       const employeeId = localStorage.getItem('employeeId'); // Récupération de l'ID de l'utilisateur
 
-      const response = await axios.get(`http://localhost:8080/api/notifications?userId=${employeeId}`, {
+      const response = await axios.get(`http://20.164.48.110/api/notifications?userId=${employeeId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setNotifications(response.data);

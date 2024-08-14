@@ -7,7 +7,7 @@ export const DELETE_SPRINT = 'DELETE_SPRINT';
 export const ADD_TASK_TO_SPRINT = 'ADD_TASK_TO_SPRINT';
 export const REMOVE_TASK_FROM_SPRINT = 'REMOVE_TASK_FROM_SPRINT';
 
-const API_URL = 'http://localhost:8080/api/manager/sprints';
+const API_URL = 'http://20.164.48.110/api/manager/sprints';
 
 export const fetchSprints = () => async (dispatch) => {
   const response = await axios.get(API_URL);

@@ -5,7 +5,7 @@ const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/tasks')
+    axios.get('http://20.164.48.110/api/tasks')
       .then(response => setTasks(response.data))
       .catch(error => console.error(error));
   }, []);

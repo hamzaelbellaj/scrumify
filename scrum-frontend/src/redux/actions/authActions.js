@@ -25,7 +25,7 @@ export const login = (credentials) => async (dispatch) => {
 
 export const register = (credentials) => async (dispatch) => {
   try {
-    const res = await axios.post('http://20.164.48.110:8080/api/auth/register', credentials);
+    const res = await axios.post('http://20.164.48.110/api/auth/register', credentials);
     const { token, roles } = res.data;
     const userRole = roles[0].name; // Assurez-vous que roles n'est pas vide
 

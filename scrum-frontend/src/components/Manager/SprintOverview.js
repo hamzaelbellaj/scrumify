@@ -20,7 +20,7 @@ const SprintOverview = () => {
     const fetchSprints = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/manager/sprints', {
+        const response = await axios.get('http://20.164.48.110/api/manager/sprints', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -50,7 +50,7 @@ const SprintOverview = () => {
       const formattedStartDate = new Date(newSprint.startDate).toISOString();
       const formattedEndDate = new Date(newSprint.endDate).toISOString();
 
-      const response = await axios.post('http://localhost:8080/api/manager/sprints', {
+      const response = await axios.post('http://20.164.48.110/api/manager/sprints', {
         ...newSprint,
         startDate: formattedStartDate,
         endDate: formattedEndDate
@@ -85,7 +85,7 @@ const SprintOverview = () => {
       const formattedStartDate = new Date(currentSprint.startDate).toISOString();
       const formattedEndDate = new Date(currentSprint.endDate).toISOString();
 
-      await axios.put(`http://localhost:8080/api/manager/sprints/${currentSprint.id}`, {
+      await axios.put(`http://20.164.48.110/api/manager/sprints/${currentSprint.id}`, {
         ...currentSprint,
         startDate: formattedStartDate,
         endDate: formattedEndDate
@@ -111,7 +111,7 @@ const SprintOverview = () => {
   const handleDeleteSprint = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/api/manager/sprints/${currentSprint.id}`, {
+      await axios.delete(`http://20.164.48.110/api/manager/sprints/${currentSprint.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

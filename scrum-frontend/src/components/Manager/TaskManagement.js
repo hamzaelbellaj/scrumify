@@ -98,7 +98,7 @@ const TaskManagement = () => {
   const handleUpdateTask = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8080/api/manager/tasks/${currentTask.id}`, currentTask, {
+      await axios.put(`http://20.164.48.110/api/manager/tasks/${currentTask.id}`, currentTask, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const updatedTasks = tasks.map(task => task.id === currentTask.id ? currentTask : task);
@@ -112,7 +112,7 @@ const TaskManagement = () => {
   const handleDeleteTask = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/api/manager/tasks/${currentTask.id}`, {
+      await axios.delete(`http://20.164.48.110/api/manager/tasks/${currentTask.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const updatedTasks = tasks.filter(task => task.id !== currentTask.id);

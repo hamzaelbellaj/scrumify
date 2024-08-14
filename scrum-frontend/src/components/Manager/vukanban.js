@@ -23,9 +23,9 @@ const Vukanban = () => {
       const token = localStorage.getItem('token');
       try {
         const [tasksResponse, sprintsResponse, employeesResponse] = await Promise.all([
-          axios.get('http://localhost:8080/api/manager/tasks', { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get('http://localhost:8080/api/manager/sprints', { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get('http://localhost:8080/api/employees', { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get('http://20.164.48.110/api/manager/tasks', { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get('http://20.164.48.110/api/manager/sprints', { headers: { Authorization: `Bearer ${token}` } }),
+          axios.get('http://20.164.48.110/api/employees', { headers: { Authorization: `Bearer ${token}` } }),
         ]);
         setTasks(tasksResponse.data);
         setSprints(sprintsResponse.data);
