@@ -11,7 +11,7 @@ export const DELETE_TASK_FAILURE = 'DELETE_TASK_FAILURE';
 
 export const fetchTasks = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://20.164.48.110/api/manager/tasks', {
+    const response = await axios.get('hhttps://scrumify.engineer/api/manager/tasks', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}` // Récupérer le token depuis le localStorage
       }

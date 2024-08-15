@@ -21,7 +21,7 @@ export const fetchTotals = () => {
     dispatch(fetchTotalsRequest());
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://20.164.48.110/api/manager/totals', {
+      const response = await fetch('https://scrumify.engineer/api/manager/totals', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

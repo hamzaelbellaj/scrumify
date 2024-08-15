@@ -28,13 +28,13 @@ const TaskManagement = () => {
       setError(null);
       try {
         const token = localStorage.getItem('token');
-        const tasksResponse = await axios.get('http://20.164.48.110/api/manager/tasks', {
+        const tasksResponse = await axios.get('https://scrumify.engineer/api/manager/tasks', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        const sprintsResponse = await axios.get('http://20.164.48.110/api/manager/sprints', {
+        const sprintsResponse = await axios.get('https://scrumify.engineer/api/manager/sprints', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        const employeesResponse = await axios.get('http://20.164.48.110/api/employees', {
+        const employeesResponse = await axios.get('https://scrumify.engineer/api/employees', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -64,7 +64,7 @@ const TaskManagement = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://20.164.48.110/api/manager/tasks', newTask, {
+      const response = await axios.post('https://scrumify.engineer/api/manager/tasks', newTask, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -93,7 +93,7 @@ const TaskManagement = () => {
   const fetchComments = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://20.164.48.110/api/tasks/${taskId}/comments`, {
+      const response = await axios.get(`https://scrumify.engineer/api/tasks/${taskId}/comments`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       return response.data;
@@ -106,7 +106,7 @@ const TaskManagement = () => {
   const handleUpdateTask = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://20.164.48.110/api/manager/tasks/${currentTask.id}`, currentTask, {
+      await axios.put(`https://scrumify.engineer/api/manager/tasks/${currentTask.id}`, currentTask, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const updatedTasks = tasks.map(task => task.id === currentTask.id ? currentTask : task);
@@ -121,7 +121,7 @@ const TaskManagement = () => {
   const handleDeleteTask = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://20.164.48.110/api/manager/tasks/${currentTask.id}`, {
+      await axios.delete(`https://scrumify.engineer/api/manager/tasks/${currentTask.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const updatedTasks = tasks.filter(task => task.id !== currentTask.id);

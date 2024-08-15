@@ -3,7 +3,7 @@ import { LOGIN_SUCCESS, REGISTER_SUCCESS, REGISTER_FAILURE } from './types';
 
 export const login = (credentials) => async (dispatch) => {
   try {
-    const res = await axios.post('http://20.164.48.110/api/auth/login', credentials);
+    const res = await axios.post('https://scrumify.engineer/api/auth/login', credentials);
     const { token, roles, userId } = res.data; // Récupérez l'ID
     const userRole = roles[0].name;
 
@@ -25,7 +25,7 @@ export const login = (credentials) => async (dispatch) => {
 
 export const register = (credentials) => async (dispatch) => {
   try {
-    const res = await axios.post('http://20.164.48.110/api/auth/register', credentials);
+    const res = await axios.post('https://scrumify.engineer/api/auth/register', credentials);
     const { token, roles } = res.data;
     const userRole = roles[0].name; // Assurez-vous que roles n'est pas vide
 

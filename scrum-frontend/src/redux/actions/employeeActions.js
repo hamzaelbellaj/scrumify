@@ -43,7 +43,7 @@ export const fetchEmployees = () => {
   return async (dispatch) => {
     dispatch(fetchEmployeesRequest());
     try {
-      const response = await axios.get('http://20.164.48.110/api/employees', {
+      const response = await axios.get('https://scrumify.engineer/api/employees', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -58,7 +58,7 @@ export const fetchEmployees = () => {
 export const createEmployee = (newEmployee) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('http://20.164.48.110/api/employees', newEmployee, {
+      const response = await axios.post('https://scrumify.engineer/api/employees', newEmployee, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -73,7 +73,7 @@ export const createEmployee = (newEmployee) => {
 export const modifyEmployee = (employeeId, updatedEmployee) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`http://20.164.48.110/api/employees/${employeeId}`, updatedEmployee, {
+      const response = await axios.put(`https://scrumify.engineer/api/employees/${employeeId}`, updatedEmployee, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -88,7 +88,7 @@ export const modifyEmployee = (employeeId, updatedEmployee) => {
 export const removeEmployee = (employeeId) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://20.164.48.110/api/employees/${employeeId}`, {
+      await axios.delete(`https://scrumify.engineer/api/employees/${employeeId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

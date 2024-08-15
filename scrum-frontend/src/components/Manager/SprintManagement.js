@@ -5,7 +5,7 @@ const SprintManagement = () => {
   const [sprints, setSprints] = useState([]);
 
   useEffect(() => {
-    axios.get('http://20.164.48.110/api/sprints')
+    axios.get('https://scrumify.engineer/api/sprints')
       .then(response => setSprints(response.data))
       .catch(error => console.error(error));
   }, []);
