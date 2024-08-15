@@ -22,6 +22,11 @@ spec:
         env:
         - name: SPRING_DATA_MONGODB_URI
           value: "mongodb://hamza:hamza@scrum-mongo-service:27017/scrumdb?authSource=admin"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: jwt.secret
       imagePullSecrets:
       - name: scrum-secret
 ---
@@ -36,4 +41,4 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-  type: ClusterIP  # Changed from LoadBalancer to ClusterIP
+  type: ClusterIP
