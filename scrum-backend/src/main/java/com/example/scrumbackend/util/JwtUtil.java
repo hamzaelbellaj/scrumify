@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +18,14 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
+    // Récupération de la clé secrète depuis l'environnement ou le fichier de configuration
     @Value("${jwt.secret}")
-    private String secretKey;
+    private String secret;
 
     private SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+        // Convertit la clé secrète en un tableau d'octets puis en SecretKey
+        byte[] decodedKey = Base64.getDecoder().decode(secret);
+        return Keys.hmacShaKeyFor(decodedKey);
     }
 
     public String extractUsername(String token) {
@@ -39,7 +43,7 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(getSecretKey())
+                .setSigningKey(getSecretKey())  // Utilisation de la clé secrète
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -60,13 +64,13 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 heures de validité
-                .signWith(getSecretKey(), SignatureAlgorithm.HS256)
+                .signWith(getSecretKey(), SignatureAlgorithm.HS256)  // Utilisation de la clé secrète
                 .compact();
     }
 
     public Boolean validateToken(String token) {
         try {
-            extractAllClaims(token); // Valider le token
+            extractAllClaims(token);  // Juste pour valider le token
             return true;
         } catch (Exception e) {
             // Log erreur
