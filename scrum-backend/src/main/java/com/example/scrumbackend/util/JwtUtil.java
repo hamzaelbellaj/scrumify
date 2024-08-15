@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +17,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    // Récupération de la clé secrète depuis l'environnement ou le fichier de configuration
-    @Value("${jwt.secret}")
-    private String secret;
-
-    private SecretKey getSecretKey() {
-        // Convertit la clé secrète en un tableau d'octets puis en SecretKey
-        byte[] decodedKey = Base64.getDecoder().decode(secret);
-        return Keys.hmacShaKeyFor(decodedKey);
-    }
+    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -42,9 +33,18 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSecretKey())  // Utilisation de la clé secrète
-                .build()
+        // Split the token into parts
+        String[] parts = token.split("\\.");
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid JWT token");
+        }
+
+        // Decode the body part
+        String body = new String(Base64.getUrlDecoder().decode(parts[1]));
+
+        // Parse the body as JSON
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -63,22 +63,27 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 heures de validité
-                .signWith(getSecretKey(), SignatureAlgorithm.HS256)  // Utilisation de la clé secrète
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours validity
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
 
     public Boolean validateToken(String token) {
         try {
-            extractAllClaims(token);  // Juste pour valider le token
+            extractAllClaims(token); // Juste pour valider le token
             return true;
         } catch (Exception e) {
-            // Log erreur
+            // log the error
             return false;
         }
     }
 
+
+
+
     public String getUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
+
 }

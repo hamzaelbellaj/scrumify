@@ -23,10 +23,7 @@ spec:
         - name: SPRING_DATA_MONGODB_URI
           value: "mongodb://hamza:hamza@scrum-mongo-service:27017/scrumdb?authSource=admin"
         - name: JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: jwt-secret
-              key: jwt.secret
+          value: "Mr8BNNdJf9zEzODltjd0F0ZHfBXAMuki1xe2Foi6O94="  # Remplacez par la clé secrète générée
       imagePullSecrets:
       - name: scrum-secret
 ---
