@@ -4,10 +4,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +19,12 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final SecretKey SECRET_KEY;
+
+    // Injecter la clé via les variables d'environnement
+    public JwtUtil(@Value("${jwt.secret}") String secret) {
+        this.SECRET_KEY = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -33,16 +40,6 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        // Split the token into parts
-        String[] parts = token.split("\\.");
-        if (parts.length < 2) {
-            throw new IllegalArgumentException("Invalid JWT token");
-        }
-
-        // Decode the body part
-        String body = new String(Base64.getUrlDecoder().decode(parts[1]));
-
-        // Parse the body as JSON
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
@@ -70,20 +67,14 @@ public class JwtUtil {
 
     public Boolean validateToken(String token) {
         try {
-            extractAllClaims(token); // Juste pour valider le token
+            extractAllClaims(token);
             return true;
         } catch (Exception e) {
-            // log the error
             return false;
         }
     }
 
-
-
-
     public String getUsernameFromToken(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
-
 }
