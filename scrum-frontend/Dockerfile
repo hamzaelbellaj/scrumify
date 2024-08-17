@@ -8,6 +8,7 @@ COPY package*.json ./
 
 # Installer les dépendances
 RUN npm install
+RUN npm install emailjs-com
 
 # Copier le reste des fichiers du projet
 COPY . .
