@@ -19,6 +19,8 @@ import Footer from './components/Footer';
 import './app.css';
 import VuKanban from './components/Manager/vukanban';
 import Profile from './components/Employee/Profile';
+import ContactForm from './components/Employee/Contact';
+import ContactUs from './components/Auth/AboutUs';
 
 const App = () => {
   const [userRole, setUserRole] = useState('');
@@ -57,6 +59,9 @@ const App = () => {
               <Route path="/manager/vukanban" component={VuKanban} /> {/* Ajouter la route pour VuKanban */}
               <Route path="/manager/notifications" component={Notifications} />
               <Route path="/employee/profile" component={Profile} />
+              <Route path="/employee/contact" component={ContactForm} />
+
+              <Route path="/about-us" component={ContactUs} />
               <Route path="/logout" component={Logout} /> {/* Ajouter la route pour Logout */}
               <Redirect from="/" to="/login" />
             </Switch>

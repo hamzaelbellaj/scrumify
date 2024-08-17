@@ -99,6 +99,10 @@ const Dashboard = () => {
           <img src={taskIcon} alt="Gestion des tâches" />
           <span>Gestion des tâches</span>
         </Link>
+        <Link to="/employee/contact" className="sidebar-item">
+          <img src={mailicon} alt="Contact" />
+          <span>Contact</span>
+        </Link>
         <Link to="/employee/profile" className="sidebar-item">
           <img src={employeeIcon} alt="Profile" />
           <span>Profile</span>
