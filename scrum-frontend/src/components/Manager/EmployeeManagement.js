@@ -16,7 +16,8 @@ const EmployeeManagement = () => {
     email: '',
     status: '',
     username: '',
-    password: ''
+    password: '',
+    profileImage: null  // Nouveau champ pour l'image
   });
 
   const [editingEmployee, setEditingEmployee] = useState(null);
@@ -28,18 +29,35 @@ const EmployeeManagement = () => {
   }, [dispatch]);
 
   const handleChange = (e) => {
+    const { name, value, files } = e.target;
     setNewEmployee({
       ...newEmployee,
-      [e.target.name]: e.target.value
+      [name]: files ? files[0] : value  // Prendre en compte le fichier image
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('employee', new Blob([JSON.stringify({
+        firstName: newEmployee.firstName,
+        lastName: newEmployee.lastName,
+        email: newEmployee.email,
+        status: newEmployee.status,
+        username: newEmployee.username,
+        password: newEmployee.password,
+       
+    })], { type: 'application/json' }));
+
+    if (newEmployee.profileImage) {
+        formData.append('image', newEmployee.profileImage); // Ajoutez l'image séparément
+    }
+
     if (editingEmployee) {
-      dispatch(modifyEmployee(editingEmployee.id, newEmployee));
+      dispatch(modifyEmployee(editingEmployee.id, formData));
     } else {
-      dispatch(createEmployee(newEmployee));
+      dispatch(createEmployee(formData));
     }
     resetForm();
   };
@@ -52,7 +70,8 @@ const EmployeeManagement = () => {
       email: employee.email,
       status: employee.status,
       username: employee.username,
-      password: '' // Ne pas pré-remplir le mot de passe
+      password: '', // Ne pas pré-remplir le mot de passe
+      
     });
     setShowModal(true);
   };
@@ -68,7 +87,8 @@ const EmployeeManagement = () => {
       email: '',
       status: '',
       username: '',
-      password: ''
+      password: '',
+     
     });
     setEditingEmployee(null);
     setShowModal(false);
@@ -91,10 +111,10 @@ const EmployeeManagement = () => {
   return (
     <div className="employee-management">
       <h2>Gestion des Employés</h2>
-      < BackToDashboard />
+      <BackToDashboard />
       <div className="info-banner">
         <p>
-          Touts les employer que vous allez creer sont de role type Employer .
+          Tous les employées que vous allez créer auront le rôle type Employé.
         </p>
       </div>
       {loading && <p>Chargement...</p>}
@@ -164,6 +184,11 @@ const EmployeeManagement = () => {
                 onChange={handleChange}
                 placeholder="Mot de passe"
                 required
+              />
+              <input
+                type="file"
+                name="profileImage"
+                onChange={handleChange}
               />
               <div className="modal-footer">
                 <button type="submit">{editingEmployee ? 'Mettre à jour' : 'Ajouter'}</button>

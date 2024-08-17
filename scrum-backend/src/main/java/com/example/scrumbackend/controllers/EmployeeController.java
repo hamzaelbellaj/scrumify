@@ -1,4 +1,3 @@
-// src/main/java/com/example/scrumbackend/controllers/EmployeeController.java
 package com.example.scrumbackend.controllers;
 
 import com.example.scrumbackend.models.Employee;
@@ -6,7 +5,12 @@ import com.example.scrumbackend.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -29,19 +33,32 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
+    public Employee createEmployee(@RequestPart("employee") Employee employee,
+                                   @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        if (image != null && !image.isEmpty()) {
+            employee.setProfileImageData(image.getBytes()); // Stocker l'image en tant que bytes dans MongoDB
+        }
         return employeeService.createEmployee(employee);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable String id, @RequestBody Employee employeeDetails) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable String id,
+                                                   @RequestPart("employee") Employee employeeDetails,
+                                                   @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        if (image != null && !image.isEmpty()) {
+            employeeDetails.setProfileImageData(image.getBytes()); // Mettre à jour l'image en tant que bytes dans MongoDB
+        }
+
         Employee updatedEmployee = employeeService.updateEmployee(id, employeeDetails);
         return ResponseEntity.ok(updatedEmployee);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable String id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

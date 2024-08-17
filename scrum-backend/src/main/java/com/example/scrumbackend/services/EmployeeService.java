@@ -1,4 +1,3 @@
-// src/main/java/com/example/scrumbackend/services/EmployeeService.java
 package com.example.scrumbackend.services;
 
 import com.example.scrumbackend.models.Employee;
@@ -52,6 +51,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
+
     public Employee updateEmployee(String id, Employee employeeDetails) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found with id " + id));
@@ -61,18 +61,35 @@ public class EmployeeService {
         employee.setEmail(employeeDetails.getEmail());
         employee.setStatus(employeeDetails.getStatus());
         employee.setUsername(employeeDetails.getUsername());
-        employee.setPassword(passwordEncoder.encode(employeeDetails.getPassword()));
-        employee.setRoles(employeeDetails.getRoles());
+
+        // Ne réencoder le mot de passe que s'il est modifié
+        if (employeeDetails.getPassword() != null && !employeeDetails.getPassword().isEmpty()) {
+            employee.setPassword(passwordEncoder.encode(employeeDetails.getPassword()));
+        }
+
+        // Vérifier et assigner les rôles si nécessaire
+        if (employeeDetails.getRoles() == null || employeeDetails.getRoles().isEmpty()) {
+            Set<Role> roles = new HashSet<>();
+            Role role = roleRepository.findByName("Employee")
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(role);
+            employee.setRoles(roles);
+        } else {
+            employee.setRoles(employeeDetails.getRoles());
+        }
+
+        // Mettre à jour les données de l'image
+        if (employeeDetails.getProfileImageData() != null) {
+            employee.setProfileImageData(employeeDetails.getProfileImageData());
+        }
 
         return employeeRepository.save(employee);
     }
 
+
     public void deleteEmployee(String id) {
         employeeRepository.deleteById(id);
     }
-
-
-
 
     public long getTotalEmployees() {
         return employeeRepository.count();

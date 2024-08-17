@@ -1,4 +1,3 @@
-// src/main/java/com/example/scrumbackend/models/Employee.java
 package com.example.scrumbackend.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,6 +8,16 @@ public class Employee extends User {
     private String lastName;
     private String email;
     private String status;
+    private byte[] profileImageData; // Nouveau champ pour l'image
+
+    // Getters and setters
+    public byte[] getProfileImageData() {
+        return profileImageData;
+    }
+
+    public void setProfileImageData(byte[] profileImageData) {
+        this.profileImageData = profileImageData;
+    }
 
     // Getters and Setters
     public String getFirstName() {
@@ -42,4 +51,6 @@ public class Employee extends User {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }
