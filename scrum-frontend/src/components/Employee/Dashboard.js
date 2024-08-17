@@ -4,6 +4,8 @@ import axios from 'axios';
 import './EmployeeDashboard.css';
 import taskIcon from '../../icons/task-icon.png';
 import employeeIcon from '../../icons/employee-icon.png';
+import mailicon from '../../icons/mail.png';
+
 import { Bar } from 'react-chartjs-2';
 import { Paper, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
