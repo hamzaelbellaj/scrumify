@@ -25,7 +25,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const response = await axios.get('https://scrumify.engineer/api/manager/count');
+        const response = await axios.get('http://localhost:8080/api/manager/count');
         const { sprintCount, taskCount, employeeCount, completedSprints } = response.data;
         setData({
           sprintCount,
@@ -73,6 +73,16 @@ const Dashboard = () => {
         label: 'Moyenne de Tâches',
         data: [data.averageTasksPerEmployee, 10 - data.averageTasksPerEmployee],
         backgroundColor: ['#E91E63', '#BDBDBD'],
+      }],
+    },
+    globalStatisticsData: {
+      labels: ['Sprints', 'Tâches', 'Employés'],
+      datasets: [{
+        label: 'Statistiques Globales',
+        data: [data.sprintCount, data.taskCount, data.employeeCount],
+        borderColor: '#FF5722',
+        backgroundColor: 'rgba(255, 87, 34, 0.2)',
+        fill: true,
       }],
     },
   };
@@ -128,12 +138,14 @@ const Dashboard = () => {
                 <Line data={chartData.completionRateData} />
               </CardContent>
             </Card>
-            <Card>
-              <CardContent>
-                <Typography variant="h5">Moyenne de Tâches par Employé</Typography>
-                <Pie data={chartData.averageTasksData} />
-              </CardContent>
-            </Card>
+            <div className="global-statistics-container">
+              <Card>
+                <CardContent>
+                  <Typography variant="h5">Statistiques Globales</Typography>
+                  <Line data={chartData.globalStatisticsData} />
+                </CardContent>
+              </Card>
+            </div>
           </div>
         )}
       </div>
